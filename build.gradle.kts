@@ -1,7 +1,10 @@
 plugins {
 	id("java")
-	id("org.springframework.boot") version "3.4.1"
+	id("org.springframework.boot") version "3.3.2"
+	id("io.spring.dependency-management") version "1.1.4"
 }
+
+ext["springCloudVersion"] = "2023.0.0"
 
 java {
 	toolchain {
@@ -40,6 +43,12 @@ subprojects {
 		testImplementation(platform("org.junit:junit-bom:5.10.0"))
 		testImplementation("org.junit.jupiter:junit-jupiter")
 		testImplementation("org.springframework.boot:spring-boot-starter-test")
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+		}
 	}
 
 	tasks.test {
