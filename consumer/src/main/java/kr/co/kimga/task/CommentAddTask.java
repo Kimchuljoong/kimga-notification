@@ -41,7 +41,8 @@ public class CommentAddTask {
                 now.plus(90, ChronoUnit.DAYS),
                 post.getId(),
                 comment.getUserId(),
-                comment.getContent()
+                comment.getContent(),
+
         );
     }
 }

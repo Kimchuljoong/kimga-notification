@@ -20,6 +20,8 @@ public class CommentEventConsumer {
         return event -> {
             if (event.getType() == CommentEventType.ADD) {
                 commentAddTask.processEvent(event);
+            } else if (event.getType() == CommentEventType.REMOVE) {
+                commentAddTask.processEvent(event);
             }
         };
     }
