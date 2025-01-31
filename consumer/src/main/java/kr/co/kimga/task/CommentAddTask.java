@@ -42,7 +42,7 @@ public class CommentAddTask {
                 post.getId(),
                 comment.getUserId(),
                 comment.getContent(),
-
+                comment.getId()
         );
     }
 }
