@@ -16,4 +16,9 @@ public class NotificationSaveService {
         Notification insertedNotification = repository.insert(notification);
         log.info("inserted: {}", insertedNotification);
     }
+
+    public void upsert(Notification notification) {
+        Notification upsertedNotification = repository.save(notification);
+        log.info("upserted: {}", upsertedNotification);
+    }
 }
