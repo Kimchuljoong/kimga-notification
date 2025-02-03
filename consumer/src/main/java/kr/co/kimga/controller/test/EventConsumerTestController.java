@@ -1,4 +1,4 @@
-package kr.co.kimga.api;
+package kr.co.kimga.controller.test;
 
 import kr.co.kimga.event.CommentEvent;
 import kr.co.kimga.event.FollowEvent;

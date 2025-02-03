@@ -1,7 +1,14 @@
 package kr.co.kimga.task;
 
-import kr.co.kimga.*;
+import kr.co.kimga.client.PostClient;
+import kr.co.kimga.domain.LikeNotification;
+import kr.co.kimga.domain.Notification;
+import kr.co.kimga.domain.NotificationType;
+import kr.co.kimga.domain.Post;
 import kr.co.kimga.event.LikeEvent;
+import kr.co.kimga.service.NotificationGetService;
+import kr.co.kimga.service.NotificationSaveService;
+import kr.co.kimga.utils.NotificationIdGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

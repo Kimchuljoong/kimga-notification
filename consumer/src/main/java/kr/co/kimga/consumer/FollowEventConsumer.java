@@ -1,5 +1,7 @@
-package kr.co.kimga.event;
+package kr.co.kimga.consumer;
 
+import kr.co.kimga.event.FollowEvent;
+import kr.co.kimga.event.FollowEventType;
 import kr.co.kimga.task.FollowAddTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

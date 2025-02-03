@@ -1,9 +1,9 @@
 package kr.co.kimga.task;
 
-import kr.co.kimga.FollowNotification;
-import kr.co.kimga.NotificationIdGenerator;
-import kr.co.kimga.NotificationSaveService;
-import kr.co.kimga.NotificationType;
+import kr.co.kimga.domain.FollowNotification;
+import kr.co.kimga.utils.NotificationIdGenerator;
+import kr.co.kimga.service.NotificationSaveService;
+import kr.co.kimga.domain.NotificationType;
 import kr.co.kimga.event.FollowEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

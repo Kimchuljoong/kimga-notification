@@ -1,7 +1,11 @@
 package kr.co.kimga.task;
 
-import kr.co.kimga.*;
+import kr.co.kimga.client.PostClient;
+import kr.co.kimga.domain.NotificationType;
+import kr.co.kimga.domain.Post;
 import kr.co.kimga.event.CommentEvent;
+import kr.co.kimga.service.NotificationGetService;
+import kr.co.kimga.service.NotificationRemoveService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

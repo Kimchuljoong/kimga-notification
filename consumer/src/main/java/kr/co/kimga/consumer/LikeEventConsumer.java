@@ -1,5 +1,7 @@
-package kr.co.kimga.event;
+package kr.co.kimga.consumer;
 
+import kr.co.kimga.event.LikeEvent;
+import kr.co.kimga.event.LikeEventType;
 import kr.co.kimga.task.LikeAddTask;
 import kr.co.kimga.task.LikeRemoveTask;
 import lombok.RequiredArgsConstructor;

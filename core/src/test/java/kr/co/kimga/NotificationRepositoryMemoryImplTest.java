@@ -1,15 +1,12 @@
 package kr.co.kimga;
 
-import org.junit.jupiter.api.Test;
+import kr.co.kimga.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootApplication
 @SpringBootTest

@@ -1,4 +1,4 @@
-package kr.co.kimga.api;
+package kr.co.kimga.controller.test;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

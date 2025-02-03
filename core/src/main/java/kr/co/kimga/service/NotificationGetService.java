@@ -1,5 +1,8 @@
-package kr.co.kimga;
+package kr.co.kimga.service;
 
+import kr.co.kimga.domain.Notification;
+import kr.co.kimga.repository.NotificationRepository;
+import kr.co.kimga.domain.NotificationType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

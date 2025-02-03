@@ -1,5 +1,6 @@
-package kr.co.kimga;
+package kr.co.kimga.client;
 
+import kr.co.kimga.domain.Post;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

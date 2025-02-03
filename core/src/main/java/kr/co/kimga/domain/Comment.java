@@ -1,4 +1,4 @@
-package kr.co.kimga;
+package kr.co.kimga.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

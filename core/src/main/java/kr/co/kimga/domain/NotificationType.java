@@ -1,4 +1,4 @@
-package kr.co.kimga;
+package kr.co.kimga.domain;
 
 public enum NotificationType {
     LIKE,

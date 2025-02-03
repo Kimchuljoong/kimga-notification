@@ -1,5 +1,7 @@
-package kr.co.kimga.event;
+package kr.co.kimga.consumer;
 
+import kr.co.kimga.event.CommentEvent;
+import kr.co.kimga.event.CommentEventType;
 import kr.co.kimga.task.CommentAddTask;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

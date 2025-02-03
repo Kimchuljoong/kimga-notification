@@ -1,8 +1,13 @@
-package kr.co.kimga;
+package kr.co.kimga.repository;
 
+import kr.co.kimga.domain.Notification;
+import kr.co.kimga.domain.NotificationType;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import java.time.Instant;
 import java.util.Optional;
 
 public interface NotificationRepository extends MongoRepository<Notification, String> {
@@ -18,4 +23,8 @@ public interface NotificationRepository extends MongoRepository<Notification, St
 
     @Query("{ 'type':  ?0, 'postId': ?1 }")
     Optional<Notification> findByTypeAndPostId(NotificationType type, Long postId);
+
+    Slice<Notification> findAllByUserIdOrderByOccurredAtDesc(Long userId, Pageable pageable);
+
+    Slice<Notification> findAllByUserIdAndOccurredAtLessThanOrderByOccurredAtDesc(Long userId, Instant occurredAt, Pageable pageable);
 }

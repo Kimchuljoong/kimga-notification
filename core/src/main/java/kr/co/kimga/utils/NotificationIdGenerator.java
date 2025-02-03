@@ -1,4 +1,4 @@
-package kr.co.kimga;
+package kr.co.kimga.utils;
 
 import org.bson.types.ObjectId;
 
