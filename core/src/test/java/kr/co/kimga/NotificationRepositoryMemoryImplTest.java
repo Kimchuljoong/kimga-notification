@@ -8,15 +8,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
-@SpringBootApplication
-@SpringBootTest
+//@SpringBootApplication
+//@SpringBootTest
 class NotificationRepositoryMemoryImplTest {
 
-    @Autowired
-    private NotificationRepository sut;
-
-    private final Instant now = Instant.now();
-    private final Instant deletedAt = Instant.now().plus(90, ChronoUnit.DAYS);
+//    @Autowired
+//    private NotificationRepository sut;
+//
+//    private final Instant now = Instant.now();
+//    private final Instant deletedAt = Instant.now().plus(90, ChronoUnit.DAYS);
 
 //    @Test
 //    void test_save() {

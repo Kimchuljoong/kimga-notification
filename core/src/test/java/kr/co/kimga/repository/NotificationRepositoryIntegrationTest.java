@@ -3,10 +3,16 @@ package kr.co.kimga.repository;
 import kr.co.kimga.IntegrationTest;
 import kr.co.kimga.domain.CommentNotification;
 import kr.co.kimga.domain.Notification;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -18,13 +24,26 @@ class NotificationRepositoryIntegrationTest extends IntegrationTest {
     @Autowired
     private NotificationRepository sut;
 
-    private final long userId = 2L;
-    private final long postId = 3L;
-    private final long writerId = 4L;
-    private final long commentId = 5L;
+    private final Long userId = 2L;
+    private final Long postId = 3L;
+    private final Long writerId = 4L;
+    private final Long commentId = 5L;
     private final String comment = "comment";
     private final Instant now = Instant.now();
     private final Instant ninetyDaysAfter = Instant.now().plus(90, DAYS);
+
+    @BeforeEach
+    void setUp() {
+        for (int i = 1; i <=5; i++) {
+            Instant occurredAt = now.minus(i, DAYS);
+            sut.save(new CommentNotification("id-" + i, userId, COMMENT, occurredAt, now, now, ninetyDaysAfter, postId, writerId, comment, commentId));
+        }
+    }
+
+    @AfterEach
+    void down() {
+        sut.deleteAll();
+    }
 
     @Test
     void testSave() {
@@ -64,6 +83,61 @@ class NotificationRepositoryIntegrationTest extends IntegrationTest {
         Optional<Notification> optionalNotification = sut.findById(id);
 
         assertFalse(optionalNotification.isPresent());
+    }
+
+    @Test
+    void test_findAllByUserIdOrderByOccurredAtDesc() {
+        Pageable pageable = PageRequest.of(0, 3);
+
+        Slice<Notification> result = sut.findAllByUserIdOrderByOccurredAtDesc(userId, pageable);
+
+        assertEquals(3, result.getContent().size());
+        assertTrue(result.hasNext());
+
+        Notification first = result.getContent().get(0);
+        Notification second = result.getContent().get(1);
+        Notification third = result.getContent().get(2);
+
+        assertTrue(first.getOccurredAt().isAfter(second.getOccurredAt()));
+        assertTrue(second.getOccurredAt().isAfter(third.getOccurredAt()));
+    }
+
+    @Test
+    void test_findAllByUserIdAndOccurredAtLessThanOrderByOccurredAtDesc_firstQuery() {
+        Pageable pageable = PageRequest.of(0, 3);
+
+        Slice<Notification> result = sut.findAllByUserIdAndOccurredAtLessThanOrderByOccurredAtDesc(userId, now, pageable);
+
+        assertEquals(3, result.getContent().size());
+        assertTrue(result.hasNext());
+
+        Notification first = result.getContent().get(0);
+        Notification second = result.getContent().get(1);
+        Notification third = result.getContent().get(2);
+
+        assertTrue(first.getOccurredAt().isAfter(second.getOccurredAt()));
+        assertTrue(second.getOccurredAt().isAfter(third.getOccurredAt()));
+
+    }
+
+
+    @Test
+    void test_findAllByUserIdAndOccurredAtLessThanOrderByOccurredAtDesc_secondQueryWithPivot() {
+        Pageable pageable = PageRequest.of(0, 3);
+
+        Slice<Notification> firstResult = sut.findAllByUserIdAndOccurredAtLessThanOrderByOccurredAtDesc(userId, now, pageable);
+        Notification last = firstResult.getContent().get(2);
+
+        Instant pivot = last.getOccurredAt();
+        Slice<Notification> secondResult = sut.findAllByUserIdAndOccurredAtLessThanOrderByOccurredAtDesc(userId, pivot, pageable);
+
+        assertEquals(2, secondResult.getContent().size());
+        assertFalse(secondResult.hasNext());
+
+        Notification first = secondResult.getContent().get(0);
+        Notification second = secondResult.getContent().get(1);
+
+        assertTrue(first.getOccurredAt().isAfter(second.getOccurredAt()));
     }
 
     private CommentNotification createCommentNotification(String id) {
