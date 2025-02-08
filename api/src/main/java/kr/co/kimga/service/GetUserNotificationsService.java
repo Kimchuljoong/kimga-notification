@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class GetUserNotificationService {
+public class GetUserNotificationsService {
 
     private final NotificationListService notificationListService;
     private final CommentUserNotificationConvertor commentConvertor;

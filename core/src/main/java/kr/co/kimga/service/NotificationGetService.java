@@ -5,8 +5,10 @@ import kr.co.kimga.repository.NotificationRepository;
 import kr.co.kimga.domain.NotificationType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Slf4j
@@ -22,6 +24,16 @@ public class NotificationGetService {
 
     public Optional<Notification> getNotificationByTypeAndPostId(NotificationType type, Long postId) {
         return repository.findByTypeAndPostId(type, postId);
+    }
+
+    public Instant getLatestUpdatedAt(long userId) {
+        Optional<Notification> notification = repository.findFirstByUserIdOrderByLastUpdatedAtDesc(userId);
+
+        if (notification.isEmpty()) {
+            return null;
+        }
+
+        return notification.get().getLastUpdatedAt();
     }
 
 }

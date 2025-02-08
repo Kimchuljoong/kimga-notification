@@ -1,4 +1,4 @@
-package kr.co.kimga.config;
+package kr.co.kimga.config.mongo;
 
 import com.mongodb.ConnectionString;
 import jakarta.annotation.PostConstruct;
