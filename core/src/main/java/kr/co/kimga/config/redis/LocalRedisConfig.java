@@ -1,7 +1,5 @@
 package kr.co.kimga.config.redis;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,41 +7,19 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.utility.DockerImageName;
 
+@Profile("local")
 @Slf4j
-@Profile("redis")
 @Configuration
 public class LocalRedisConfig {
 
-    private static final String IMAGE = "redis:7:4:0";
-    private static final int PORT = 6379;
-    private GenericContainer redis;
-
-    @PostConstruct
-    public void startRedis() {
-        try {
-            redis = new GenericContainer(DockerImageName.parse(IMAGE)).withExposedPorts(PORT);
-            redis.start();
-        } catch (Exception e) {
-            log.error("Failed to start redis", e);
-        }
-    }
-
-    @PreDestroy
-    public void stopRedis() {
-        try {
-            redis.stop();
-        } catch (Exception e) {
-            log.error("Failed to stop redis", e);
-        }
-    }
+    private static final String REDIS_HOST = "localhost";
+    private static final int REDIS_PORT = 6379;
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration =
-                new RedisStandaloneConfiguration(redis.getHost(), redis.getMappedPort(PORT));
+                new RedisStandaloneConfiguration(REDIS_HOST, REDIS_PORT);
         return new LettuceConnectionFactory(redisStandaloneConfiguration);
     }
 }
